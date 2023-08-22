@@ -1,0 +1,145 @@
+import time
+import tkinter as tk
+from tkinter import simpledialog
+
+def check_prediction(user_input, missing_word, chances, start_time, timer_duration):
+    if user_input == missing_word:
+        return "win"
+    elif chances == 0:
+        return "out_of_chances"
+    elif time.time() - start_time > timer_duration:
+        return "out_of_time"
+    else:
+        return "continue"
+
+def start_game():
+    example1 = entry_example1.get()
+    missing_word = entry_example2.get()
+    name_choice = name_var.get()
+    
+    root.withdraw()  # Hide the setup window
+    
+    game_window = tk.Tk()
+    game_window.title("Mami Game - Predictions")
+    
+    tk.Label(game_window, text="Predict 'missing word' as " + name_choice, font=("Helvetica", 14)).pack(pady=10)
+    
+    chances = 3
+    hearts = "❤️" * chances
+    hearts_label = tk.Label(game_window, text=hearts, font=("Helvetica", 20))
+    hearts_label.pack()
+    
+    timer_duration = 120  # 2 minutes in seconds
+    start_time = time.time()
+    timer_label = tk.Label(game_window, text="", font=("Helvetica", 20))
+    timer_label.pack()
+
+    def update_timer():
+        elapsed_time = int(time.time() - start_time)
+        remaining_time = max(timer_duration - elapsed_time, 0)
+        minutes = remaining_time // 60
+        seconds = remaining_time % 60
+        timer_label.config(text=f"{minutes:02d}:{seconds:02d}")
+        if remaining_time > 0:
+            game_window.after(1000, update_timer)
+        else:
+            game_over("Time's up! You've run out of time.")
+
+    update_timer()
+
+    user_input_entry = tk.Entry(game_window)
+    user_input_entry.pack(pady=10)
+
+    cheat_button = tk.Button(game_window, text="Use Cheat", command=use_cheat)
+    cheat_button.pack(pady=10)
+
+    def use_cheat():
+        nonlocal chances, start_time
+        chances = 3  # Reset chances to maximum
+        start_time = time.time()  # Reset the timer
+        hearts_label.config(text="❤️" * chances)
+        timer_label.config(text="02:00")
+
+        cheat_input = simpledialog.askstring("Cheat", "Enter the cheat code:")
+        if cheat_input == "say my name":
+            tk.Label(game_window, text="You are goddamn right!", font=("Helvetica", 14)).pack(pady=10)
+
+    def predict():
+        nonlocal chances, hearts
+        user_input = user_input_entry.get()
+        
+        result = check_prediction(user_input, missing_word, chances, start_time, timer_duration)
+        
+        if result == "win":
+            game_over("Congratulations! You've won!", game_window)
+        elif result == "out_of_chances":
+            game_over("Sorry, you've run out of chances. Better luck next time!", game_window)
+        elif result == "out_of_time":
+            game_over("Time's up! You've run out of time.", game_window)
+        else:
+            chances -= 1
+            hearts = "❤️" * chances
+            hearts_label.config(text=hearts)
+            user_input_entry.delete(0, tk.END)
+            if chances == 0:
+                game_over("Sorry, you've run out of chances. Better luck next time!", game_window)
+
+    def game_over(result_text, window):
+        tk.Label(window, text=result_text, font=("Helvetica", 14)).pack(pady=10)
+        user_input_entry.destroy()
+        timer_label.config(text="00:00")
+        predict_button.config(state=tk.DISABLED)
+        exit_button = tk.Button(window, text="Exit", command=exit_game)
+        exit_button.pack(pady=10)
+        back_to_menu_button = tk.Button(window, text="Back to Main Menu", command=back_to_menu)
+        back_to_menu_button.pack(pady=10)
+
+    def exit_game():
+        game_window.destroy()
+
+    def back_to_menu():
+        game_window.destroy()
+        main_menu()
+
+    def main_menu():
+        global game_ongoing
+        game_ongoing = False  # Reset the game_ongoing flag
+        root.deiconify()  # Show the main menu again
+
+    user_input_entry = tk.Entry(game_window)
+    user_input_entry.pack(pady=10)
+
+    predict_button = tk.Button(game_window, text="Predict", command=predict)
+    predict_button.pack(pady=10)
+
+    game_window.mainloop()
+
+game_ongoing = True  # Initialize the flag globally
+
+root = tk.Tk()
+root.title("Mami Game")
+
+sentence = "Mami ke 'example1' bashe behesh migan 'missing_word'"
+
+def start_game_from_menu():
+    root.withdraw()  # Hide the main menu
+    start_game()
+
+# GUI Elements (setup)
+tk.Label(root, text="Welcome to the Mami Game!", font=("Helvetica", 16)).pack(pady=10)
+tk.Label(root, text="Enter 'word':").pack()
+entry_example1 = tk.Entry(root)
+entry_example1.pack()
+tk.Label(root, text="Enter 'missing word':").pack()
+entry_example2 = tk.Entry(root)
+entry_example2.pack()
+tk.Label(root, text="Choose a name:").pack()
+name_var = tk.StringVar()
+name_var.set("Mami")
+name_option_menu = tk.OptionMenu(root, name_var, "Mami")
+name_option_menu.pack()
+
+start_button = tk.Button(root, text="Start Game", command=start_game_from_menu)
+start_button.pack(pady=10)
+
+root.mainloop()
