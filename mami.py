@@ -15,14 +15,13 @@ def check_prediction(user_input, missing_word, chances, start_time, timer_durati
 def start_game():
     example1 = entry_example1.get()
     missing_word = entry_example2.get()
-    name_choice = name_var.get()
     
     root.destroy()  # Close the setup window
     
     game_window = tk.Tk()
     game_window.title("Mami Game - Predictions")
     
-    tk.Label(game_window, text="Predict 'missing word' as " + name_choice, font=("Helvetica", 14)).pack(pady=10)
+    tk.Label(game_window, text="Predict 'missing word' as mami" , font=("Helvetica", 14)).pack(pady=10)
     
     chances = 3
     hearts = "❤️" * chances
@@ -76,13 +75,13 @@ def start_game():
         timer_label.config(text="00:00")
         predict_button.config(state=tk.DISABLED)
     def cheat () :
-        return game_over('say my name' , game_window)
+        return game_over('arfaaaaaaaa !!! you are goddamn right! victory is yours now :)' , game_window)
     user_input_entry = tk.Entry(game_window)
     user_input_entry.pack(pady=10)
 
     predict_button = tk.Button(game_window, text="Predict", command=predict)
     predict_button.pack(pady=10)
-    predict_button = tk.Button(game_window, text="cheat", command=cheat)
+    predict_button = tk.Button(game_window, text="say my name", command=cheat)
     predict_button.pack(pady=10)
 
     game_window.mainloop()
@@ -100,12 +99,6 @@ entry_example1.pack()
 tk.Label(root, text="Enter 'missing word':").pack()
 entry_example2 = tk.Entry(root)
 entry_example2.pack()
-tk.Label(root, text="Choose a name:").pack()
-name_var = tk.StringVar()
-name_var.set("Mami")
-name_option_menu = tk.OptionMenu(root, name_var, "Mami")
-name_option_menu.pack()
-
 start_button = tk.Button(root, text="Start Game", command=start_game)
 start_button.pack(pady=10)
 
