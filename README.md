@@ -31,9 +31,9 @@ just find two words and the fun is getting started :)
 
    git clone https://github.com/arfa79/mami_game.git
 
-2. go to the game directory
+2. go to the game directory:
 
-    cd mami-game-predictions
+    cd mami_game
 
 Install the required dependencies:
 
