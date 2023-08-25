@@ -3,13 +3,13 @@ FROM dorowu/ubuntu-desktop-lxde-vnc
 
 # Install necessary dependencies
 RUN apt-get update && \
-    apt-get install -y python3 python3-tk
+    apt-get install -y requirements.txt
 
 # Copy your game files into the container
-COPY mami.py /MAMI_GAME_BOT/
+COPY mami.py /mami_game/
 
 # Set the working directory
-WORKDIR /app/
+WORKDIR /mami_game/
 
 # Start the game when the container runs
 CMD ["python3", "mami.py"]
