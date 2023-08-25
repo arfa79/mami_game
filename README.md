@@ -18,7 +18,7 @@ Welcome to the Mami Game! This is a simple game built using Tkinter, where you p
 In this game, you are presented with a sentence containing a missing word. Your task is to predict the missing word to win the game. The game includes features such as tracking your chances, a timer, and even a cheat code to help you if you're stuck!
 
 ## Getting Started
-just find two words and the fun is getting start :)
+just find two words and the fun is getting started :)
 ### Prerequisites
 
 - Python 3
@@ -39,7 +39,7 @@ Install the required dependencies:
 
     pip install -r requirements.txt
 
-###Usage
+Usage
 
     Run the game:
 
@@ -47,7 +47,7 @@ Install the required dependencies:
 
     Follow the instructions displayed on the screen to play the game.
 
-###Dockerizing the Game
+Dockerizing the Game
 
 You can also run the game inside a Docker container. Dockerizing graphical applications can be a bit tricky due to the nature of GUI applications.
 
@@ -65,6 +65,6 @@ Contributing
 
 Contributions are welcome! If you find any issues or have improvements to suggest, please open an issue or submit a pull request.
 
-###License
+License
 
 This project is licensed under the GPL License - see the LICENSE file for details.
