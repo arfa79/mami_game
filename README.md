@@ -39,7 +39,7 @@ Install the required dependencies:
 
     pip install -r requirements.txt
 
-Usage
+## Usage
 
     Run the game:
 
@@ -47,7 +47,7 @@ Usage
 
     Follow the instructions displayed on the screen to play the game.
 
-Dockerizing the Game
+## Dockerizing the Game
 
 You can also run the game inside a Docker container. Dockerizing graphical applications can be a bit tricky due to the nature of GUI applications.
 
@@ -61,10 +61,10 @@ Run the Docker container:
 
     Access the game using a VNC viewer at localhost:5900 (password: vncpassword) or a web browser at http://localhost:6080/.
 
-Contributing
+## Contributing
 
 Contributions are welcome! If you find any issues or have improvements to suggest, please open an issue or submit a pull request.
 
-License
+## License
 
 This project is licensed under the GPL License - see the LICENSE file for details.
