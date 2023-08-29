@@ -6,10 +6,10 @@ RUN apt-get update && \
     apt-get install -y requirements.txt
 
 # Copy your game files into the container
-COPY mami.py /mami_game/
+COPY . /app/
 
 # Set the working directory
-WORKDIR /mami_game/
+WORKDIR /app
 
 # Start the game when the container runs
 CMD ["python3", "mami.py"]
